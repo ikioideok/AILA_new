@@ -1,12 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const headerPath = './_header.html';
+document.addEventListener("DOMContentLoaded", function () {
+    const headerPath = `${window.location.origin}/AILA_new/_header.html`;
 
     fetch(headerPath)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) throw new Error('Header not found');
+            return response.text();
+        })
         .then(html => {
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
-
             document.body.insertAdjacentHTML('afterbegin', tempDiv.innerHTML);
 
             const mobileMenuButton = document.getElementById('mobile-menu-button');
